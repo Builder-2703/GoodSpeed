@@ -143,8 +143,7 @@ export function reducer(state: AppState, action: Action): AppState {
 
     default: {
       // Exhaustive check: compile error if a new action type is unhandled
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const _exhaustive: never = action
+      action satisfies never
       return state
     }
   }

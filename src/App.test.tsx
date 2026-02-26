@@ -1,8 +1,29 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import App from './App'
 
+// Helper: lock AR (16:9) + Height (100in) to trigger results
+function lockARAndHeight() {
+  render(<App />)
+
+  // Lock Aspect Ratio: select 16:9 from dropdown, then click its lock icon
+  const arSelect = screen.getAllByDisplayValue('Aspect Ratio')[0] as HTMLSelectElement
+  fireEvent.change(arSelect, { target: { value: String(16 / 9) } })
+  // Lock buttons are ordered: Diagonal, AR, Width, Height
+  const lockButtons = screen.getAllByLabelText('Lock parameter')
+  fireEvent.click(lockButtons[1]!) // AR lock
+
+  // Lock Height: the text inputs are ordered Diagonal, Width, Height (AR is a dropdown)
+  const textInputs = screen.getAllByPlaceholderText('0.00')
+  fireEvent.change(textInputs[2]!, { target: { value: '100' } })
+  // Apply buttons are ordered: Diagonal, Width, Height
+  const applyButtons = screen.getAllByText('apply')
+  fireEvent.click(applyButtons[2]!) // Height apply
+}
+
 describe('App', () => {
+  // --- Phase 2 smoke tests (unchanged) ---
+
   it('renders the parameter form', () => {
     render(<App />)
     expect(screen.getByText('Enter at least 2 parameters.')).toBeDefined()
@@ -14,7 +35,6 @@ describe('App', () => {
     expect(screen.getByText(/Diagonal/)).toBeDefined()
     expect(screen.getByText(/Width/)).toBeDefined()
     expect(screen.getByText(/Height/)).toBeDefined()
-    // "Aspect Ratio" appears in both the label and the dropdown placeholder
     expect(screen.getAllByText('Aspect Ratio').length).toBeGreaterThanOrEqual(1)
   })
 
@@ -22,5 +42,52 @@ describe('App', () => {
     render(<App />)
     const select = screen.getByDisplayValue('Inches')
     expect(select).toBeDefined()
+  })
+
+  // --- Phase 3 integration tests ---
+
+  it('does not show results table before locking 2 params', () => {
+    render(<App />)
+    expect(screen.queryByText('Choose a Size')).toBeNull()
+  })
+
+  it('shows results table after locking 2 params', () => {
+    lockARAndHeight()
+
+    // Results table should now be visible
+    expect(screen.getByText('Choose a Size')).toBeDefined()
+    expect(screen.getByText('Nearest Size')).toBeDefined()
+    // Should show 4 radio buttons
+    expect(screen.getAllByRole('radio').length).toBe(4)
+  })
+
+  it('shows grid and counter after selecting and confirming', () => {
+    lockARAndHeight()
+
+    // Select first option
+    const radios = screen.getAllByRole('radio')
+    fireEvent.click(radios[0]!)
+
+    // Confirm
+    fireEvent.click(screen.getByText('Confirm'))
+
+    // Counter and grid should appear
+    expect(screen.getByText('Columns')).toBeDefined()
+    expect(screen.getByText('Rows')).toBeDefined()
+    expect(screen.getByText('Selected')).toBeDefined()
+    expect(document.querySelector('svg')).not.toBeNull()
+  })
+
+  it('hides results and grid when a param is unlocked', () => {
+    lockARAndHeight()
+
+    expect(screen.getByText('Choose a Size')).toBeDefined()
+
+    // Unlock AR by clicking its lock icon (now shows as "Unlock parameter")
+    const unlockButtons = screen.getAllByLabelText('Unlock parameter')
+    fireEvent.click(unlockButtons[0]!)
+
+    // Results should disappear
+    expect(screen.queryByText('Choose a Size')).toBeNull()
   })
 })
