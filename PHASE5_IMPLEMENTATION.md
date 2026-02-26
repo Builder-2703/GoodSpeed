@@ -369,27 +369,28 @@ npx tsc --noEmit     # type check passes
 ```
 
 ### Checklist
-- [ ] `src/App.tsx` — responsive page padding (`px-4 py-6 sm:px-6 sm:py-8`)
-- [ ] `src/components/ResultsTable.tsx` — responsive header (`flex-col sm:flex-row`)
-- [ ] `src/App.tsx` — responsive counter (`text-4xl sm:text-5xl`, `gap-8 sm:gap-12`)
-- [ ] `src/components/ParameterForm.tsx` — info banner flex-wrap
-- [ ] Edge case sweep — all A/B/C tests pass
-- [ ] `npm run build` — clean production build
-- [ ] `npm test` — all tests green (regression clean)
-- [ ] Vercel deployment live and functional
+- [x] `src/App.tsx` — responsive page padding (`px-4 py-6 sm:px-6 sm:py-8`)
+- [x] `src/components/ResultsTable.tsx` — responsive header (`flex-col sm:flex-row`)
+- [x] `src/App.tsx` — responsive counter (`text-4xl sm:text-5xl`, `gap-8 sm:gap-12`)
+- [x] `src/components/ParameterForm.tsx` — info banner flex-wrap
+- [x] Edge case sweep — all A/B/C tests pass
+- [x] `npm run build` — clean production build (85KB gzipped)
+- [x] `npm test` — all 98 tests green (regression clean)
+- [x] Vercel deployment live and functional — https://goodspeed-six.vercel.app
 - [ ] Loom videos recorded
 
 ### Files Modified in Phase 5
 
 ```
+index.html              ← MODIFIED (page title, removed broken favicon ref)
 src/
-  App.tsx               ← MODIFIED (responsive padding, responsive counter)
+  App.tsx               ← MODIFIED (page header, responsive padding, responsive counter)
   components/
-    ParameterForm.tsx   ← MODIFIED (info banner flex-wrap)
+    ParameterForm.tsx   ← MODIFIED (info banner flex-wrap, h1→h2)
     ResultsTable.tsx    ← MODIFIED (responsive header)
 ```
 
-**Total: 3 files modified, 0 new files.** Phase 5 is CSS-only responsive polish + deployment — no logic changes, no new components, no new state.
+**Total: 4 files modified, 0 new files.** Phase 5 is responsive polish + page header + deployment — no new components, no new state.
 
 ---
 

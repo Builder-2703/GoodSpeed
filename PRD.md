@@ -887,37 +887,37 @@ The assignment will be evaluated on these criteria (from the spec). Each maps to
 
 ## 14. Development Phases
 
-### Phase 1 — Foundation (est. ~30% of effort)
-- [ ] Scaffold Vite + React + TS + Tailwind project
-- [ ] Define all types in `types.ts`
-- [ ] Implement `units.ts` (toMM, fromMM) + unit tests
-- [ ] Implement `calculate.ts` (all 6 combos) + unit tests
-- [ ] Implement `nearest.ts` (scoring logic)
-- [ ] Verify all 3 test cases pass
+### Phase 1 — Foundation (est. ~30% of effort) ✅
+- [x] Scaffold Vite + React + TS + Tailwind project
+- [x] Define all types in `types.ts`
+- [x] Implement `units.ts` (toMM, fromMM) + unit tests
+- [x] Implement `calculate.ts` (all 6 combos) + unit tests
+- [x] Implement `nearest.ts` (scoring logic)
+- [x] Verify all 3 test cases pass
 
-### Phase 2 — State & Input UI (~25%)
-- [ ] Implement `reducer.ts` (AppState, all Actions)
-- [ ] Build `ParameterForm.tsx` — 4 fields, lock/unlock, unit dropdown
-- [ ] Wire reducer to form — lock transitions, disable logic
-- [ ] Unit switching updates labels and values
+### Phase 2 — State & Input UI (~25%) ✅
+- [x] Implement `reducer.ts` (AppState, all Actions)
+- [x] Build `ParameterForm.tsx` — 4 fields, lock/unlock, unit dropdown
+- [x] Wire reducer to form — lock transitions, disable logic
+- [x] Unit switching updates labels and values
 
-### Phase 3 — Results & Selection (~25%)
-- [ ] Build `ResultsTable.tsx` — 4-column comparison table
-- [ ] "Nearest Size" badge rendering
-- [ ] Radio select + Cancel/Confirm flow
-- [ ] Row/column counter display
-- [ ] Build `WallGrid.tsx` — SVG grid + arrows + diagonal + labels
+### Phase 3 — Results & Selection (~25%) ✅
+- [x] Build `ResultsTable.tsx` — 4-column comparison table
+- [x] "Nearest Size" badge rendering
+- [x] Radio select + Cancel/Confirm flow
+- [x] Row/column counter display
+- [x] Build `WallGrid.tsx` — SVG grid + arrows + diagonal + labels
 
-### Phase 4 — Persistence & Bonus (~15%)
-- [ ] Implement `storage.ts` — save/list/delete selections + quotes
-- [ ] Build `History.tsx` — list with delete + reload
-- [ ] Build `ContactModal.tsx` — "Help me choose" + "Receive Quote"
-- [ ] Build `Toast.tsx` — auto-dismiss confirmation
+### Phase 4 — Persistence & Bonus (~15%) ✅
+- [x] Implement `storage.ts` — save/list/delete selections + quotes
+- [x] Build `History.tsx` — list with delete + reload
+- [x] Build `ContactModal.tsx` — "Help me choose" + "Receive Quote"
+- [x] Build `Toast.tsx` — auto-dismiss confirmation
 
-### Phase 5 — Polish & Deploy (~5%)
-- [ ] Responsive behavior (mobile stack, table scroll)
-- [ ] Edge case manual testing sweep
-- [ ] Deploy to Vercel
+### Phase 5 — Polish & Deploy (~5%) ✅
+- [x] Responsive behavior (mobile stack, table scroll)
+- [x] Edge case manual testing sweep (A1-A8, B1-B10, C1-C8 all pass)
+- [x] Deploy to Vercel — https://goodspeed-six.vercel.app
 - [ ] Record Loom walkthroughs
 
 ---
