@@ -125,9 +125,9 @@ export default function ResultsTable({ state, dispatch }: ResultsTableProps) {
                     <p className="text-4xl font-black text-gray-900">
                       {config.cols}x{config.rows}
                     </p>
-                    {/* Cabinet label */}
+                    {/* Cabinet label + lower/upper */}
                     <p className="text-sm text-gray-500 mt-1">
-                      {config.cabinetType} Cabinet System
+                      {config.cabinetType} Cabinet — {i % 2 === 0 ? 'Lower' : 'Upper'}
                     </p>
                   </th>
                 ))}
