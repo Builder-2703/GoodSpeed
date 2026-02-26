@@ -119,7 +119,14 @@ export default function ParameterForm({ state, dispatch }: ParameterFormProps) {
                     disabled={disabled || locked}
                     value={locked ? String(state.values.aspectRatio) : drafts.aspectRatio}
                     onChange={e => {
-                      if (!locked) setDrafts(d => ({ ...d, aspectRatio: e.target.value }))
+                      if (!locked) {
+                        const arValue = parseFloat(e.target.value)
+                        if (!isNaN(arValue) && arValue > 0) {
+                          handleLockAR(arValue)
+                        } else {
+                          setDrafts(d => ({ ...d, aspectRatio: e.target.value }))
+                        }
+                      }
                     }}
                     className={`mt-1 block w-full border rounded-md px-3 py-2 text-base ${
                       disabled ? 'bg-gray-200 text-gray-400 border-gray-200' :
