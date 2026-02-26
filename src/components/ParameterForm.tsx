@@ -75,9 +75,9 @@ export default function ParameterForm({ state, dispatch }: ParameterFormProps) {
       {/* Header */}
       <div>
         <p className="text-sm text-gray-400 uppercase tracking-wide">Size</p>
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h2 className="text-2xl font-bold text-gray-900">
           Enter at least 2 parameters.
-        </h1>
+        </h2>
       </div>
 
       {/* Info Banner */}

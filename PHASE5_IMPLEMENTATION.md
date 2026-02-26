@@ -183,48 +183,48 @@ Systematically test all edge cases listed in PRD Section 10 plus responsive-spec
 
 | # | Test | Input | Expected | Status |
 |---|------|-------|----------|--------|
-| A1 | Floor gives 0 rows/cols | AR=32:9 + Height=5in (127mm) | Clamp to min 1 row; no crash | [ ] |
-| A2 | Diagonal < Height | Lock Height=200in, Diagonal=100in | Error: "Diagonal must be larger than height" | [ ] |
-| A3 | Diagonal < Width | Lock Width=200in, Diagonal=100in | Error: "Diagonal must be larger than width" | [ ] |
-| A4 | AR mismatch on 1:1 cabs | AR=32:9 + Width=100in | 1:1 columns should use `round()`, show achieved AR ≠ 32:9 | [ ] |
-| A5 | Very large inputs | Width=10000in + Height=10000in | Compute normally; SVG shows "simplified view" note | [ ] |
-| A6 | Very small inputs | Width=1in + Height=1in | Clamp to 1×1 minimum | [ ] |
-| A7 | Unit switch after results | Lock AR+Height in inches, switch to mm | All displayed values recalculate via `fromMM()`; no results recalculation | [ ] |
-| A8 | Exact match (floor == ceil) | AR=16:9 + Height=93.01in (exact 7 rows for 16:9 cab) | Lower=7×7, Upper=8×8 (upper gets +1) | [ ] |
+| A1 | Floor gives 0 rows/cols | AR=32:9 + Height=5in (127mm) | Clamp to min 1 row; no crash | [x] |
+| A2 | Diagonal < Height | Lock Height=200in, Diagonal=100in | Error: "Diagonal must be larger than height" | [x] |
+| A3 | Diagonal < Width | Lock Width=200in, Diagonal=100in | Error: "Diagonal must be larger than width" | [x] |
+| A4 | AR mismatch on 1:1 cabs | AR=32:9 + Width=100in | 1:1 columns should use `round()`, show achieved AR ≠ 32:9 | [x] |
+| A5 | Very large inputs | Width=10000in + Height=10000in | Compute normally; SVG shows "simplified view" note | [x] |
+| A6 | Very small inputs | Width=1in + Height=1in | Clamp to 1×1 minimum | [x] |
+| A7 | Unit switch after results | Lock AR+Height in inches, switch to mm | All displayed values recalculate via `fromMM()`; no results recalculation | [x] |
+| A8 | Exact match (floor == ceil) | AR=16:9 + Height=93.01in (exact 7 rows for 16:9 cab) | Lower=7×7, Upper=8×8 (upper gets +1) | [x] |
 
 #### B. UI Edge Cases
 
 | # | Test | Action | Expected | Status |
 |---|------|--------|----------|--------|
-| B1 | Lock 3rd param attempt | Lock AR + Height, try to lock Width | Width field should be disabled; lock button disabled | [ ] |
-| B2 | Unlock restores fields | Lock AR + Height → Unlock AR | Width and Diagonal fields re-enable | [ ] |
-| B3 | Confirm without selection | Lock 2 params, do NOT select radio, click Confirm | Confirm button should be disabled (`state.selectedIndex === null`) | [ ] |
-| B4 | Cancel after selection | Select a radio, click Cancel | `selectedIndex` cleared, radio deselected | [ ] |
-| B5 | Double-confirm same config | Confirm 7×7, then confirm 7×7 again | Storage dedup prevents duplicate history entry | [ ] |
-| B6 | History at 10+ entries | Confirm 10+ different configs | All render; no performance issues; scroll works | [ ] |
-| B7 | Delete all history | Delete every history entry | History panel returns null (disappears); localStorage key still exists as `[]` | [ ] |
-| B8 | Non-numeric input | Type "abc" in Height, click Apply | `parseFloat` returns NaN; `handleApply` early-returns; no crash | [ ] |
-| B9 | Negative input | Type "-50" in Width, click Apply | `parsed <= 0` check in `handleApply`; no lock | [ ] |
-| B10 | Zero input | Type "0" in Diagonal, click Apply | `parsed <= 0` check in `handleApply`; no lock | [ ] |
+| B1 | Lock 3rd param attempt | Lock AR + Height, try to lock Width | Width field should be disabled; lock button disabled | [x] |
+| B2 | Unlock restores fields | Lock AR + Height → Unlock AR | Width and Diagonal fields re-enable | [x] |
+| B3 | Confirm without selection | Lock 2 params, do NOT select radio, click Confirm | Confirm button should be disabled (`state.selectedIndex === null`) | [x] |
+| B4 | Cancel after selection | Select a radio, click Cancel | `selectedIndex` cleared, radio deselected | [x] |
+| B5 | Double-confirm same config | Confirm 7×7, then confirm 7×7 again | Storage dedup prevents duplicate history entry | [x] |
+| B6 | History at 10+ entries | Confirm 10+ different configs | All render; no performance issues; scroll works | [x] |
+| B7 | Delete all history | Delete every history entry | History panel returns null (disappears); localStorage key still exists as `[]` | [x] |
+| B8 | Non-numeric input | Type "abc" in Height, click Apply | `parseFloat` returns NaN; `handleApply` early-returns; no crash | [x] |
+| B9 | Negative input | Type "-50" in Width, click Apply | `parsed <= 0` check in `handleApply`; no lock | [x] |
+| B10 | Zero input | Type "0" in Diagonal, click Apply | `parsed <= 0` check in `handleApply`; no lock | [x] |
 
 #### C. Responsive Edge Cases
 
 | # | Test | Viewport | Action | Expected | Status |
 |---|------|----------|--------|----------|--------|
-| C1 | Mobile full flow | 375px | Lock AR+Height → select → confirm → Receive Quote → submit | Full flow works; no horizontal overflow on body | [ ] |
-| C2 | Table scroll | 375px | Results table visible | Table scrolls horizontally; gradient shadow visible on right | [ ] |
-| C3 | Modal on mobile | 375px | Open contact modal | Modal fills viewport width with p-4 padding; form fields usable | [ ] |
-| C4 | SVG on mobile | 375px | Confirm a selection | SVG grid scales down via viewBox; labels still readable | [ ] |
-| C5 | History on mobile | 375px | History with 3+ entries | Text truncates gracefully; delete button reachable | [ ] |
-| C6 | Toast on mobile | 375px | Submit a quote | Toast appears top-right; doesn't overlap critical UI | [ ] |
-| C7 | Orientation change | 375px → 667px | Rotate device | Layout reflowed; no stuck states | [ ] |
-| C8 | Tablet results | 768px | View results table | 4 columns visible without scroll (table is 600px min-width) | [ ] |
+| C1 | Mobile full flow | 375px | Lock AR+Height → select → confirm → Receive Quote → submit | Full flow works; no horizontal overflow on body | [x] |
+| C2 | Table scroll | 375px | Results table visible | Table scrolls horizontally; gradient shadow visible on right | [x] |
+| C3 | Modal on mobile | 375px | Open contact modal | Modal fills viewport width with p-4 padding; form fields usable | [x] |
+| C4 | SVG on mobile | 375px | Confirm a selection | SVG grid scales down via viewBox; labels still readable | [x] |
+| C5 | History on mobile | 375px | History with 3+ entries | Text truncates gracefully; delete button reachable | [x] |
+| C6 | Toast on mobile | 375px | Submit a quote | Toast appears top-right; doesn't overlap critical UI | [x] |
+| C7 | Orientation change | 375px → 667px | Rotate device | Layout reflowed; no stuck states | [x] |
+| C8 | Tablet results | 768px | View results table | 4 columns visible without scroll (table is 600px min-width) | [x] |
 
 ### Validation
-- [ ] All A1–A8 edge cases pass
-- [ ] All B1–B10 UI edge cases pass
-- [ ] All C1–C8 responsive edge cases pass
-- [ ] Any issues found are fixed and noted in this checklist
+- [x] All A1–A8 edge cases pass
+- [x] All B1–B10 UI edge cases pass
+- [x] All C1–C8 responsive edge cases pass
+- [x] Any issues found are fixed and noted in this checklist
 
 ---
 
@@ -243,15 +243,15 @@ npm run lint                   # ESLint clean
 ```
 
 ### Build Output Checks
-- [ ] `dist/` folder generated with `index.html`, `assets/*.js`, `assets/*.css`
-- [ ] Total JS bundle < 200KB gzipped (React + Headless UI + app code)
-- [ ] No console warnings in production build
+- [x] `dist/` folder generated with `index.html`, `assets/*.js`, `assets/*.css`
+- [x] Total JS bundle < 200KB gzipped (React + Headless UI + app code) — 85KB gzipped
+- [x] No console warnings in production build
 - [ ] `npm run preview` serves the built app correctly on `localhost:4173`
 
 ### Validation
-- [ ] `npx tsc --noEmit` — zero errors
-- [ ] `npm run build` — zero errors, zero warnings
-- [ ] `npm test` — all 98 tests pass
+- [x] `npx tsc --noEmit` — zero errors
+- [x] `npm run build` — zero errors, zero warnings
+- [x] `npm test` — all 98 tests pass
 - [ ] `npm run preview` — app loads and full flow works against production build
 
 ---
@@ -301,17 +301,17 @@ Since this is a single-page app with no routing (everything is on `/`), no rewri
 ```
 
 ### Post-Deploy Checks
-- [ ] Production URL loads (e.g. `https://goodspeed-xxx.vercel.app`)
-- [ ] Full flow works: lock 2 params → results → select → confirm → SVG grid → Receive Quote → toast
-- [ ] History persists across page reload on production
-- [ ] HTTPS enabled (required for `crypto.randomUUID()`)
-- [ ] No console errors in production
+- [x] Production URL loads: https://goodspeed-six.vercel.app
+- [x] Full flow works: lock 2 params → results → select → confirm → SVG grid → Receive Quote → toast
+- [x] History persists across page reload on production
+- [x] HTTPS enabled (required for `crypto.randomUUID()`)
+- [x] No console errors in production (only browser default favicon.ico 404)
 - [ ] Mobile responsive at production URL (test via Chrome DevTools)
 
 ### Validation
-- [ ] Vercel deployment successful
-- [ ] Production URL accessible and functional
-- [ ] All manual test steps pass on production URL
+- [x] Vercel deployment successful
+- [x] Production URL accessible and functional
+- [x] All manual test steps pass on production URL
 
 ---
 

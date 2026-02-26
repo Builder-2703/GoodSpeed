@@ -67,6 +67,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-5xl mx-auto px-4 py-6 sm:px-6 sm:py-8 space-y-8">
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">Video Wall Size Calculator</h1>
         <ParameterForm state={state} dispatch={dispatch} />
 
         {state.results && (
