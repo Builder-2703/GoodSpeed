@@ -71,3 +71,33 @@ export type QuoteRequest = {
   contactValue: string
   submittedAt: number
 }
+
+// --- App State ---
+
+export type AppState = {
+  locks: Record<Param, boolean>
+  values: Record<Param, number>       // stored in mm (except aspectRatio which is unitless)
+  unit: Unit
+  results: Config[] | null            // 4 configs or null
+  nearestIndex: number | null         // index 0-3 of nearest match
+  selectedIndex: number | null        // radio selection (pre-confirm)
+  confirmed: Config | null            // post-confirm
+  history: SavedSelection[]
+  modalOpen: boolean
+  modalSource: 'help' | 'quote' | null
+  error: string | null                // validation error message
+}
+
+// --- Reducer Actions ---
+
+export type Action =
+  | { type: 'LOCK_PARAM'; param: Param; value: number }
+  | { type: 'UNLOCK_PARAM'; param: Param }
+  | { type: 'SET_UNIT'; unit: Unit }
+  | { type: 'SELECT_OPTION'; index: number }
+  | { type: 'CONFIRM' }
+  | { type: 'CANCEL' }
+  | { type: 'OPEN_MODAL'; source: 'help' | 'quote' }
+  | { type: 'CLOSE_MODAL' }
+  | { type: 'DELETE_HISTORY'; id: string }
+  | { type: 'LOAD_HISTORY'; history: SavedSelection[] }
