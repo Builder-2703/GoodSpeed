@@ -81,7 +81,7 @@ export default function ParameterForm({ state, dispatch }: ParameterFormProps) {
       </div>
 
       {/* Info Banner */}
-      <div className="flex items-center justify-between border border-gray-200 bg-gray-50 rounded-lg px-4 py-3">
+      <div className="flex items-center justify-between flex-wrap gap-2 border border-gray-200 bg-gray-50 rounded-lg px-4 py-3">
         <div className="flex items-center gap-2">
           <Info className="h-4 w-4 text-gray-500" />
           <span className="text-sm text-gray-600">

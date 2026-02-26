@@ -66,7 +66,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="max-w-5xl mx-auto px-6 py-8 space-y-8">
+      <div className="max-w-5xl mx-auto px-4 py-6 sm:px-6 sm:py-8 space-y-8">
         <ParameterForm state={state} dispatch={dispatch} />
 
         {state.results && (
@@ -84,13 +84,13 @@ export default function App() {
             </div>
 
             {/* Row/Column Counter */}
-            <div className="flex items-center justify-center gap-12">
+            <div className="flex items-center justify-center gap-8 sm:gap-12">
               <div className="text-center">
-                <p className="text-5xl font-black text-gray-900">{state.confirmed.cols}</p>
+                <p className="text-4xl sm:text-5xl font-black text-gray-900">{state.confirmed.cols}</p>
                 <p className="text-sm text-gray-500">Columns</p>
               </div>
               <div className="text-center">
-                <p className="text-5xl font-black text-gray-900">{state.confirmed.rows}</p>
+                <p className="text-4xl sm:text-5xl font-black text-gray-900">{state.confirmed.rows}</p>
                 <p className="text-sm text-gray-500">Rows</p>
               </div>
             </div>

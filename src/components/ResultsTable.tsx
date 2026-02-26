@@ -84,7 +84,7 @@ export default function ResultsTable({ state, dispatch }: ResultsTableProps) {
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h2 className="text-xl font-semibold text-gray-900">Choose a Size</h2>
           <p className="text-sm text-gray-500 mt-1">
