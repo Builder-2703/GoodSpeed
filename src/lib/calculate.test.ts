@@ -151,5 +151,21 @@ describe('calculate', () => {
       })
       expect(results).toHaveLength(4)
     })
+
+    it('Height + Diagonal throws when diagonal <= height', () => {
+      expect(() => calculate({
+        combo: 'height_diagonal',
+        height: toMM(200, 'in'),
+        diagonal: toMM(100, 'in'),
+      })).toThrow('Diagonal must be greater than height')
+    })
+
+    it('Width + Diagonal throws when diagonal <= width', () => {
+      expect(() => calculate({
+        combo: 'width_diagonal',
+        width: toMM(200, 'in'),
+        diagonal: toMM(100, 'in'),
+      })).toThrow('Diagonal must be greater than width')
+    })
   })
 })

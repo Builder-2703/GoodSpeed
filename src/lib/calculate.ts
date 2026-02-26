@@ -107,6 +107,9 @@ function calcHeightDiagonal(
   cabinetType: CabinetType,
   cab: Cabinet
 ): [Config, Config] {
+  if (targetD <= targetH) {
+    throw new Error('Diagonal must be greater than height')
+  }
   const targetW = Math.sqrt(targetD ** 2 - targetH ** 2)
   return calcHeightWidth(targetH, targetW, cabinetType, cab)
 }
@@ -117,6 +120,9 @@ function calcWidthDiagonal(
   cabinetType: CabinetType,
   cab: Cabinet
 ): [Config, Config] {
+  if (targetD <= targetW) {
+    throw new Error('Diagonal must be greater than width')
+  }
   const targetH = Math.sqrt(targetD ** 2 - targetW ** 2)
   return calcHeightWidth(targetH, targetW, cabinetType, cab)
 }
