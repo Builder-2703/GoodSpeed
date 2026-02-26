@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import App from './App'
 
@@ -21,7 +21,20 @@ function lockARAndHeight() {
   fireEvent.click(applyButtons[2]!) // Height apply
 }
 
+// Helper: lock → select → confirm (full flow)
+function lockSelectConfirm() {
+  lockARAndHeight()
+
+  const radios = screen.getAllByRole('radio')
+  fireEvent.click(radios[0]!)
+  fireEvent.click(screen.getByText('Confirm'))
+}
+
 describe('App', () => {
+  beforeEach(() => {
+    localStorage.clear()
+  })
+
   // --- Phase 2 smoke tests (unchanged) ---
 
   it('renders the parameter form', () => {
@@ -62,14 +75,7 @@ describe('App', () => {
   })
 
   it('shows grid and counter after selecting and confirming', () => {
-    lockARAndHeight()
-
-    // Select first option
-    const radios = screen.getAllByRole('radio')
-    fireEvent.click(radios[0]!)
-
-    // Confirm
-    fireEvent.click(screen.getByText('Confirm'))
+    lockSelectConfirm()
 
     // Counter and grid should appear
     expect(screen.getByText('Columns')).toBeDefined()
@@ -89,5 +95,33 @@ describe('App', () => {
 
     // Results should disappear
     expect(screen.queryByText('Choose a Size')).toBeNull()
+  })
+
+  // --- Phase 4 integration tests ---
+
+  it('shows "Receive Quote" button after confirming', () => {
+    lockSelectConfirm()
+
+    // "Receive Quote" should replace the dashed placeholder
+    expect(screen.getByText('Receive Quote')).toBeDefined()
+    // Dashed placeholder should be gone
+    expect(screen.queryByText(/Receive Quote button — Phase 4/)).toBeNull()
+  })
+
+  it('opens quote modal when "Receive Quote" clicked', () => {
+    lockSelectConfirm()
+
+    fireEvent.click(screen.getByText('Receive Quote'))
+
+    // Modal should open with "Request a Quote" title
+    expect(screen.getByText('Request a Quote')).toBeDefined()
+    expect(screen.getByText('Submit')).toBeDefined()
+  })
+
+  it('shows history after confirming a selection', () => {
+    lockSelectConfirm()
+
+    // History section should appear with the saved selection
+    expect(screen.getByText('History')).toBeDefined()
   })
 })

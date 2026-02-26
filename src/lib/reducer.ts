@@ -141,6 +141,23 @@ export function reducer(state: AppState, action: Action): AppState {
       return { ...state, history: action.history }
     }
 
+    case 'RELOAD_HISTORY': {
+      const s = action.selection
+      return {
+        ...state,
+        confirmed: {
+          cabinetType: s.cabinetType,
+          rows: s.rows,
+          cols: s.cols,
+          totalCabinets: s.totalCabinets,
+          widthMM: s.widthMM,
+          heightMM: s.heightMM,
+          diagonalMM: s.diagonalMM,
+          aspectRatio: s.aspectRatio,
+        },
+      }
+    }
+
     default: {
       // Exhaustive check: compile error if a new action type is unhandled
       action satisfies never

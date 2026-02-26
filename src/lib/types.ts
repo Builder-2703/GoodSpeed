@@ -101,3 +101,4 @@ export type Action =
   | { type: 'CLOSE_MODAL' }
   | { type: 'DELETE_HISTORY'; id: string }
   | { type: 'LOAD_HISTORY'; history: SavedSelection[] }
+  | { type: 'RELOAD_HISTORY'; selection: SavedSelection }
