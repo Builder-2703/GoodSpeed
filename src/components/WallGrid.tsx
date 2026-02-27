@@ -60,21 +60,21 @@ export default function WallGrid({ config, unit }: WallGridProps) {
         className="max-w-full"
       >
         <defs>
-          {/* Left/Up arrowhead */}
+          {/* Outward-pointing arrowhead for line start (points away from line) */}
           <marker
             id="arrowhead-start"
             markerWidth={ARROWHEAD_SIZE}
             markerHeight={ARROWHEAD_SIZE}
             refX={ARROWHEAD_SIZE}
             refY={ARROWHEAD_SIZE / 2}
-            orient="auto-start-reverse"
+            orient="auto"
           >
             <polygon
               points={`${ARROWHEAD_SIZE},0 0,${ARROWHEAD_SIZE / 2} ${ARROWHEAD_SIZE},${ARROWHEAD_SIZE}`}
               fill="#6B7280"
             />
           </marker>
-          {/* Right/Down arrowhead */}
+          {/* Outward-pointing arrowhead for line end (points away from line) */}
           <marker
             id="arrowhead-end"
             markerWidth={ARROWHEAD_SIZE}
