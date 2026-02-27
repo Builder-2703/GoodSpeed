@@ -1,4 +1,5 @@
 import type { Config, Unit } from '../lib/types'
+import { CABINETS } from '../lib/config'
 import { fromMM } from '../lib/units'
 
 type WallGridProps = {
@@ -8,7 +9,7 @@ type WallGridProps = {
 
 // --- SVG Layout Constants ---
 const PADDING = 80
-const CELL_SIZE = 40
+const CELL_BASE = 40 // base size for the shorter dimension
 const MAX_CELLS = 50
 const ARROW_OFFSET = 30
 const ARROWHEAD_SIZE = 8
@@ -23,8 +24,15 @@ const UNIT_LABELS: Record<Unit, string> = {
 export default function WallGrid({ config, unit }: WallGridProps) {
   const displayCols = Math.min(config.cols, MAX_CELLS)
   const displayRows = Math.min(config.rows, MAX_CELLS)
-  const gridWidth = displayCols * CELL_SIZE
-  const gridHeight = displayRows * CELL_SIZE
+
+  // Use actual cabinet proportions for cell dimensions
+  const cab = CABINETS[config.cabinetType]
+  const cabAR = cab.width / cab.height // e.g. 1.78 for 16:9, 1.0 for 1:1
+  const cellW = cabAR >= 1 ? CELL_BASE * cabAR : CELL_BASE
+  const cellH = cabAR >= 1 ? CELL_BASE : CELL_BASE / cabAR
+
+  const gridWidth = displayCols * cellW
+  const gridHeight = displayRows * cellH
   const totalWidth = gridWidth + PADDING * 2
   const totalHeight = gridHeight + PADDING * 2
 
@@ -89,10 +97,10 @@ export default function WallGrid({ config, unit }: WallGridProps) {
               <rect
                 key={`${row}-${col}`}
                 className="grid-cell"
-                x={col * CELL_SIZE}
-                y={row * CELL_SIZE}
-                width={CELL_SIZE}
-                height={CELL_SIZE}
+                x={col * cellW}
+                y={row * cellH}
+                width={cellW}
+                height={cellH}
                 fill="#F5F5F5"
                 stroke="#D1D5DB"
                 strokeWidth={1}
