@@ -100,6 +100,23 @@ describe('calculate', () => {
       expect(upper.rows).toBe(6)
     })
 
+    it('near-exact match via unit conversion: 118.11in height with 1:1 cabinet', () => {
+      // 118.11in × 25.4 = 2999.994mm ≈ 3000mm = 6 × 500mm
+      // Without epsilon snapping, 5.999988 floors to 5 (wrong).
+      // With snapping, it rounds to 6 → lower=6, upper=7 → 11x6 and 12x7
+      const results = calculate({
+        combo: 'ar_height',
+        ar: 16 / 9,
+        height: toMM(118.11, 'in'),
+      })
+      const lower = getConfig(results, '1:1', 'lower')
+      const upper = getConfig(results, '1:1', 'upper')
+      expect(lower.cols).toBe(11)
+      expect(lower.rows).toBe(6)
+      expect(upper.cols).toBe(12)
+      expect(upper.rows).toBe(7)
+    })
+
     it('very small input: clamps to minimum 1x1', () => {
       const results = calculate({
         combo: 'height_width',

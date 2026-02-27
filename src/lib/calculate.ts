@@ -26,8 +26,14 @@ function buildConfig(
 // --- Helper: lower/upper for a single axis ---
 
 function floorCeil(exact: number): [number, number] {
-  const lower = Math.max(Math.floor(exact), 1)
-  let upper = Math.ceil(exact)
+  // Snap to nearest integer when within floating-point tolerance
+  // (e.g. 5.999988 from 118.11in → 2999.994mm / 500 should be treated as 6.0)
+  const EPSILON = 0.001
+  const rounded = Math.round(exact)
+  const snapped = Math.abs(exact - rounded) < EPSILON ? rounded : exact
+
+  const lower = Math.max(Math.floor(snapped), 1)
+  let upper = Math.ceil(snapped)
   if (upper <= lower) upper = lower + 1
   return [lower, upper]
 }
