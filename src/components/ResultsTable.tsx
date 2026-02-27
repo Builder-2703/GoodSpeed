@@ -16,11 +16,12 @@ function formatDimension(mm: number, unit: Unit): string {
 }
 
 function formatAR(config: Config): string {
+  const decimal = config.aspectRatio.toFixed(2)
   const match = ASPECT_RATIOS.find(
     ar => Math.abs(ar.value - config.aspectRatio) < 0.01
   )
-  if (match) return `${match.label} (${config.aspectRatio.toFixed(2)})`
-  return `${config.aspectRatio.toFixed(2)}:1`
+  if (match) return `${match.label} (${decimal})`
+  return `${decimal}:1 (${decimal})`
 }
 
 function formatEntryAR(arValue: number): string {
